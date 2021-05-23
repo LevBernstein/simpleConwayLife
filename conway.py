@@ -40,16 +40,15 @@ def alive(board, y, x):
 
 def game(board, generations):
     status(board)
+    oldBoard = board
     for n in range(generations):
         newBoard = [[0 for a in range(WIDTH)] for b in range(HEIGHT)]
         for i in range(HEIGHT):
             for j in range(WIDTH): newBoard[i][j] = alive(board, i, j)
-        if board == newBoard:
-            break
+        status(newBoard)
+        if board == newBoard or oldBoard == newBoard or sum(row.count(1) for row in board) == 0: break
+        oldBoard = board
         board = newBoard
-        status(board)
-        if sum(row.count(1) for row in board) == 0:
-            break
     print("Ended on generation " + str(n+1))
 
 if __name__ == "__main__":
