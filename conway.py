@@ -21,18 +21,15 @@ def setup():
         board = [[randint(0,1) for i in range(WIDTH)] for j in range(HEIGHT)]
         status(board)
         answer = input("Is this starting seed acceptable?\n").lower()
-        if answer == "yes" or answer == "y":
-            valid = True
-    system("cls" if name == 'nt' else "clear") # assume everything but Windows is unix-based
+        if answer == "yes" or answer == "y": valid = True
     return board
 
 def status(board):
     #system("cls" if name == 'nt' else "clear") # assume everything but Windows is unix-based
-    print("AAAAAAAAAAAAAAAAA")
+    print("AAAAAAAAAAAAAAAAA") # temporary while I try to figure out what's going wrong
     for row in board:
         answer = ""
-        for num in row:
-            answer += "O   " if num == 1 else "_   "
+        for num in row: answer += "O   " if num == 1 else "_   "
         print(answer[:-3] + "\n")
     sleep(.25)
 
@@ -45,17 +42,14 @@ def alive(board, y, x):
     #print(left, right, up, down)
     neighbors += board[up][left] + board[y][left] + board[down][left] + board[up][x] + board[down][x] + board[up][right] + board[y][right] + board[down][right]
     #print(neighbors)
-    if (board[y][x] == 0 and neighbors == 3) or (board[y][x] == 1 and (neighbors == 2 or neighbors == 3)):
-        return 1
-    return 0
+    return 1 if (board[y][x] == 0 and neighbors == 3) or (board[y][x] == 1 and (neighbors == 2 or neighbors == 3)) else 0
 
-def game(board, iterations):
+def game(board, generations):
     status(board)
-    for i in range(iterations):
+    for i in range(generations):
         newBoard = [[0 for i in range(WIDTH)] for j in range(HEIGHT)]
         for i in range(HEIGHT):
-            for j in range(WIDTH):
-                newBoard[i][j] = alive(board, i, j)
+            for j in range(WIDTH): newBoard[i][j] = alive(board, i, j)
         board = newBoard
         status(board)
 
