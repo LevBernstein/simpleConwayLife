@@ -19,13 +19,6 @@ def clear():
   div.innerHTML = ''
 
 
-async def setup():
-	clear()
-	board = [[randint(0,1) for i in range(WIDTH)] for j in range(HEIGHT)]
-	await status(board)
-	return board
-
-
 async def status(board):
 	clear()
 	div = document.getElementById("box")
